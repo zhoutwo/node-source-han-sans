@@ -1,0 +1,14 @@
+{
+  "version": "1.0.0",
+  "description": "An npm package to facilitate use of web fonts and CSS @font-faces for adobe-fonts/source-han-sans.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhoutwo/node-source-han-sans.git"
+  },
+  "keywords": [],
+  "author": "zhoutwo",
+  "bugs": {
+    "url": "https://github.com/zhoutwo/node-source-han-sans/issues"
+  },
+  "homepage": "https://github.com/zhoutwo/node-source-han-sans#readme"
+}

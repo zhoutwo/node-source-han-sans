@@ -1,0 +1,49 @@
+name: Build
+
+on:
+  push:
+    branches-ignore: 'wrapper'
+
+jobs:
+  build:
+    name: Build and Publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+      - name: Use Node.js 12.16.2
+        uses: actions/setup-node@v1
+        with:
+          always-auth: true
+          node-version: 12.16.2
+          registry-url: https://registry.npmjs.org/
+      - name: Build All Packages
+        run: node src/build.js
+      - name: Publish Each Package
+        run: |
+          cd dist
+          for file in *
+          do
+            if test -d $file
+            then
+              echo "Publishing in $file";
+              cd $file;
+              # Ignore error because certain packages do get published in previous builds; Check manually for success
+              (NODE_AUTH_TOKEN=${{ secrets.NPM_TOKEN }} npm publish . || true);
+              cd ..;
+            fi
+          done
+          cd ..
+      - name: Upload Dist Folder
+        if: always()
+        uses: actions/upload-artifact@v1
+        with:
+          name: dist
+          path: dist
+    env:
+      # According to https://help.github.com/en/actions/reference/virtual-environments-for-github-hosted-runners
+      PARALLELISM_FACTOR: 2
+      # This variable substitution is not currently working (token will be set with literal "XXXXX-XXXXX-XXXXX-XXXXX"), hence not using Node to call npm publish
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
