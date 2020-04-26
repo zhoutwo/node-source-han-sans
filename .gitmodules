@@ -1,0 +1,3 @@
+[submodule "src/source-han-sans"]
+	path = src/source-han-sans
+	url = https://github.com/adobe-fonts/source-han-sans.git
