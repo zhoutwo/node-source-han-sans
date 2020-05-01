@@ -9,19 +9,21 @@ If your project is able to load fonts, then this package should be able to plug-
 Simply include in your JS/TS file:
 ```javascript
 // Japanese seems to be the default language for the font because the font family name for "Regular" does not have language identifier in it.
-require('node-source-han-sans/Japanese/all.css');
+require('node-source-han-sans/SourceHanSans-Regular-all.css');
 // Or
-import 'node-source-han-sans/Japanese/all.css';
+import 'node-source-han-sans/SourceHanSans-Regular-all.css';
 ```
 and you are ready to use the `Source Han Sans` for `font-family` in your CSS code.
 
 ## Advanced Options
-The `all.css` here includes all font formats. There are other options to choose what to include.
+The `SourceHanSans-Regular-all.css` here includes all font formats for `SourceHanSans-Regular`. There are other options to choose what to include.
 Replace "all" with "local", "otf", "local-otf"... to use just `local` source, just `otf`, `local` source followed by `otf` source, etc.
+Likewise, if you need different/additional font weights, you need to change the `SourceHanSans-Regular` part.
+Look in the folder for what's available.
 
 If you switch between languages/locales, consider switching to a different subset because certain characters do differ. Note that the font family name will also change.
-For example, for Simplified Chinese, the font family name becomes "Source Han Sans SC". Refer to [SourceHanSansDesignGuide.pdf](src/source-han-sans/SourceHanSansDesignGuide.pdf)
-and [SourceHanSansReadMe.pdf](src/source-han-sans/SourceHanSansReadMe.pdf) for more information.
+For example, for Simplified Chinese, the font family name becomes "Source Han Sans SC". Refer to [SourceHanSansDesignGuide.pdf](https://github.com/adobe-fonts/source-han-sans/blob/1.003R/SourceHanSansDesignGuide.pdf)
+and [SourceHanSansReadMe.pdf](https://github.com/adobe-fonts/source-han-sans/blob/1.003R/SourceHanSansReadMe.pdf) for more information.
 
 `HW` refers to "Half-Width".
 
