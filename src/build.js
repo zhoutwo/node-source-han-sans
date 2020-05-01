@@ -21,7 +21,7 @@ const {
   },
 } = settings;
 const { spawnPromisified, runInBatchedParallel } = require('./execution-helpers')(settings);
-const { generateCssForFiles } = require('./css-generator');
+const { generateCss } = require('./css-generator');
 const { generatePackageJsonForFolders } = require('./package-json-generator');
 
 (async () => {
@@ -136,10 +136,12 @@ const { generatePackageJsonForFolders } = require('./package-json-generator');
         fontJobContexts.flatMap(({ otfFolder, distOtfFolder, fontFiles }) => {
           console.log(`Generate CSS output for ${otfFolder}`);
           const fontFilesWithoutExtension = fontFiles.map((fontFile) => fontFile.replace('.otf', ''));
-          Object.entries(CSS_BUILD_CONFIGURATIONS).forEach(
+          return Object.entries(CSS_BUILD_CONFIGURATIONS).flatMap(
             ([configName, { includeLocal, includeOtf, includeWoff2 }]) => {
-              const cssStr = generateCssForFiles(fontFilesWithoutExtension, includeLocal, includeOtf, includeWoff2);
-              fs.writeFileSync(path.join(distOtfFolder, `${configName}.css`), cssStr);
+              fontFilesWithoutExtension.map((fontFileWithoutExtension) => {
+                const cssStr = generateCss(fontFileWithoutExtension, includeLocal, includeOtf, includeWoff2);
+                return fsp.writeFile(path.join(distOtfFolder, `${fontFileWithoutExtension}-${configName}.css`), cssStr);
+              });
             },
           );
         }),
