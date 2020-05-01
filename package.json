@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0-1.001R",
+  "version": "1.1.0-1.001R",
   "description": "An npm package to facilitate use of web fonts and CSS @font-faces for adobe-fonts/source-han-sans.",
   "repository": {
     "type": "git",
